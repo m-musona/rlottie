@@ -29,9 +29,9 @@
 
 #if defined _WIN32 || defined __CYGWIN__
   #ifdef RLOTTIE_BUILD
-    #define RLOTTIE_API __declspec(dllexport)
+    #define RLOTTIE_API //__declspec(dllexport)
   #else
-    #define RLOTTIE_API __declspec(dllimport)
+    #define RLOTTIE_API //__declspec(dllimport)
   #endif
 #else
   #ifdef RLOTTIE_BUILD

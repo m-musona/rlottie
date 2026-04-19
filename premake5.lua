@@ -9,17 +9,10 @@ project "rlottie"
 
     files
     {
-        -- Public Headers
         "inc/rlottie.h",
-        "inc/rlottie_capi.h",
-        "inc/rlottie_common.h",
-
-        -- Source files
-        "src/binding/c/rlottie_capi.cpp",
-        
+        "inc/rlottiecommon.h",
         "src/lottie/**.h",
         "src/lottie/**.cpp",
-        
         "src/vector/**.h",
         "src/vector/**.cpp"
     }
@@ -29,22 +22,30 @@ project "rlottie"
         "inc",
         "src/lottie",
         "src/vector",
-        "src/vector/pixman" -- Internal rasterizer
+        "src/vector/pixman",
+        "src/vector/freetype",
+        "src" -- This allows #include "config.h" to work
+    }
+
+    removefiles
+    {
+        "src/vector/stb/stb_image.cpp",
+        "src/vector/vimageloader.cpp"
     }
 
     defines
     {
         "RLOTTIE_BUILD",
         "LOTTIE_STATIC",
-        "_CRT_SECURE_NO_WARNINGS"
+        "LOTTIE_THREAD_SAFE",
+        "HAVE_CONFIG_H" -- This tells the source to use your config.h
     }
 
     filter "system:windows"
         systemversion "latest"
-        defines { "UNICODE", "_UNICODE" }
-
-    filter "system:macosx"
-        buildoptions { "-fvisibility=hidden" }
+        defines { "UNICODE", "_UNICODE", "LOTTIE_IMAGE_LOADER" }
+        -- Disable noisy warnings that don't affect functionality
+        disablewarnings { "4251", "4244", "4267", "4996" }
 
     filter "configurations:Debug"
         runtime "Debug"

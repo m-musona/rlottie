@@ -12,3 +12,12 @@ tmp
 .vs
 **/*.DS_Store
 builddir_wasm
+**/bin/
+**/bin-int/
+Intermediates
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+bin/
+bin-int/
